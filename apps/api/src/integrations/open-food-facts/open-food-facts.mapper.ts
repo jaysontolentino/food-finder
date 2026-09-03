@@ -1,4 +1,5 @@
 import type { SupportedLanguage } from "@food-finder/shared";
+
 import type { OpenFoodFactsProduct } from "./open-food-facts.types.js";
 
 export interface Product {
@@ -9,22 +10,33 @@ export interface Product {
   nutrition: Record<string, number | string | undefined> | null;
 }
 
+function getLocalizedName(
+  product: OpenFoodFactsProduct,
+  language: SupportedLanguage,
+): string {
+  const localizedNames: Record<SupportedLanguage, string | undefined> = {
+    en: product.product_name_en,
+    nl: product.product_name_nl,
+    de: product.product_name_de,
+    fr: product.product_name_fr,
+  };
+
+  return (
+    localizedNames[language]?.trim() ||
+    product.product_name_en?.trim() ||
+    product.product_name?.trim() ||
+    "Unknown product"
+  );
+}
+
 export function mapProduct(
   product: OpenFoodFactsProduct,
   language: SupportedLanguage,
 ): Product {
-  const localizedName =
-    product[`product_name_${language}` as keyof OpenFoodFactsProduct];
-
-  const name =
-    typeof localizedName === "string" && localizedName.trim()
-      ? localizedName
-      : (product.product_name ?? "Unknown product");
-
   return {
     barcode: product.code ?? "",
-    name,
-    brand: product.brands ?? null,
+    name: getLocalizedName(product, language),
+    brand: product.brands?.trim() || null,
     imageUrl: product.image_front_url ?? null,
     nutrition: product.nutriments ?? null,
   };

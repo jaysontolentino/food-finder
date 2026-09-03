@@ -19,7 +19,7 @@ export class OpenFoodFactsClient {
 
     const response = await fetch(url, {
       headers: {
-        "User-Agent": "FoodFinder/1.0 (foodfinder@example.com)",
+        "User-Agent": "FoodFinder/1.0 (foodfactsfinder@example.com)",
       },
     });
 

@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { prisma } from "./lib/prisma";
+import productRoutes from "./routes/product.routes";
 
 const app = express();
 
@@ -29,5 +30,7 @@ app.get("/health", async (_req, res) => {
     });
   }
 });
+
+app.use("/api/products", productRoutes);
 
 export default app;
