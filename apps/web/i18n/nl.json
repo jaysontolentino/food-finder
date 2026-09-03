@@ -1,0 +1,14 @@
+{
+  "title": "FoodFinder",
+  "subtitle": "Vind verpakte voedingsproducten",
+  "searchPlaceholder": "Zoek naar een product...",
+  "search": "Zoeken",
+  "recentSearches": "Recente zoekopdrachten",
+  "products": "Producten",
+  "brand": "Merk",
+  "noResults": "Geen producten gevonden.",
+  "searchError": "Producten konden niet worden gezocht.",
+  "loading": "Zoeken...",
+  "nutrition": "Voedingswaarden",
+  "subscriptionRequired": "Voedingswaarden vereisen een actief abonnement."
+}

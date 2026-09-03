@@ -1,0 +1,14 @@
+{
+  "title": "FoodFinder",
+  "subtitle": "Trouvez des produits alimentaires emballés",
+  "searchPlaceholder": "Rechercher un produit...",
+  "search": "Rechercher",
+  "recentSearches": "Recherches récentes",
+  "products": "Produits",
+  "brand": "Marque",
+  "noResults": "Aucun produit trouvé.",
+  "searchError": "Impossible de rechercher les produits.",
+  "loading": "Recherche...",
+  "nutrition": "Valeurs nutritionnelles",
+  "subscriptionRequired": "Les informations nutritionnelles nécessitent un abonnement actif."
+}

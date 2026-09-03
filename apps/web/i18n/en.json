@@ -1,0 +1,14 @@
+{
+  "title": "FoodFinder",
+  "subtitle": "Find packaged food products",
+  "searchPlaceholder": "Search for a product...",
+  "search": "Search",
+  "recentSearches": "Recent searches",
+  "products": "Products",
+  "brand": "Brand",
+  "noResults": "No products found.",
+  "searchError": "Unable to search for products.",
+  "loading": "Searching...",
+  "nutrition": "Nutrition",
+  "subscriptionRequired": "Nutrition details require an active subscription."
+}

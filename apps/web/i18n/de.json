@@ -1,0 +1,14 @@
+{
+  "title": "FoodFinder",
+  "subtitle": "Verpackte Lebensmittel finden",
+  "searchPlaceholder": "Nach einem Produkt suchen...",
+  "search": "Suchen",
+  "recentSearches": "Letzte Suchanfragen",
+  "products": "Produkte",
+  "brand": "Marke",
+  "noResults": "Keine Produkte gefunden.",
+  "searchError": "Produkte konnten nicht gesucht werden.",
+  "loading": "Suche...",
+  "nutrition": "Nährwerte",
+  "subscriptionRequired": "Nährwerte erfordern ein aktives Abonnement."
+}
