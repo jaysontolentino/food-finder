@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import { OpenFoodFactsClient } from "../integrations/open-food-facts/open-food-facts.client";
+import { OpenFoodFactsRateLimitError } from "../integrations/open-food-facts/open-food-facts.errors";
 import { toProductResponse } from "../services/product-response";
 import { ProductService } from "../services/product.service";
 import { SearchRepository } from "../repositories/search.repository";
@@ -55,6 +56,12 @@ router.get("/search", async (req, res) => {
       ),
     });
   } catch (error) {
+    if (error instanceof OpenFoodFactsRateLimitError) {
+      return res.status(503).json({
+        error:
+          "Product search is temporarily unavailable. Please try again shortly.",
+      });
+    }
     console.error("Product search failed:", error);
 
     return res.status(502).json({

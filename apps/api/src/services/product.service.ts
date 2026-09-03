@@ -33,14 +33,14 @@ export class ProductService {
       return [];
     }
 
+    const response =
+      await this.openFoodFactsClient.searchProducts(normalizedQuery);
+
     await this.searchRepository.create(
       userId,
       normalizedQuery,
       languageMap[language],
     );
-
-    const response =
-      await this.openFoodFactsClient.searchProducts(normalizedQuery);
 
     return (response.products ?? []).map((product) =>
       mapProduct(product, language),

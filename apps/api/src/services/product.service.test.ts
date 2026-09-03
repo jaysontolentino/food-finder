@@ -191,4 +191,30 @@ describe("ProductService", () => {
       },
     ]);
   });
+
+  it("does not record the search when the product API fails", async () => {
+    let searchRecorded = false;
+
+    const fakeSearchRepository = {
+      create: async () => {
+        searchRecorded = true;
+      },
+
+      findRecentByUser: async () => [],
+    };
+
+    const fakeClient = {
+      searchProducts: async () => {
+        throw new Error("Open Food Facts unavailable");
+      },
+    };
+
+    const service = new ProductService(fakeClient, fakeSearchRepository);
+
+    await expect(
+      service.searchProducts("demo-user-id", "nutella", "en"),
+    ).rejects.toThrow("Open Food Facts unavailable");
+
+    expect(searchRecorded).toBe(false);
+  });
 });
