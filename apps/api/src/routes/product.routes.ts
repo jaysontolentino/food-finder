@@ -1,13 +1,18 @@
 import { Router } from "express";
 
-import { OpenFoodFactsClient } from "../integrations/open-food-facts/open-food-facts.client.js";
-import { toProductResponse } from "../services/product-response.js";
-import { ProductService } from "../services/product.service.js";
+import { OpenFoodFactsClient } from "../integrations/open-food-facts/open-food-facts.client";
+import { toProductResponse } from "../services/product-response";
+import { ProductService } from "../services/product.service";
+import { SearchRepository } from "../repositories/search.repository";
 
 const router = Router();
 
 const openFoodFactsClient = new OpenFoodFactsClient();
-const productService = new ProductService(openFoodFactsClient);
+const searchRepository = new SearchRepository();
+const productService = new ProductService(
+  openFoodFactsClient,
+  searchRepository,
+);
 
 const supportedLanguages = ["en", "nl", "de", "fr"] as const;
 
@@ -29,8 +34,15 @@ router.get("/search", async (req, res) => {
     });
   }
 
+  const demoUserId = process.env.DEMO_USER_ID;
+
+  if (!demoUserId) {
+    throw new Error("DEMO_USER_ID is not configured.");
+  }
+
   try {
     const products = await productService.searchProducts(
+      demoUserId,
       query,
       language as SupportedLanguage,
     );

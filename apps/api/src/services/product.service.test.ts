@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { mapProduct } from "./../integrations/open-food-facts/open-food-facts.mapper";
-import { ProductService } from "./product.service.js";
+import { ProductService } from "./product.service";
 
 describe("mapProduct", () => {
   it("uses the selected language when available", () => {
@@ -88,9 +88,18 @@ describe("ProductService", () => {
       }),
     };
 
-    const service = new ProductService(fakeClient);
+    const fakeSearchRepository = {
+      create: async () => undefined,
+      findRecentByUser: async () => [],
+    };
 
-    const products = await service.searchProducts("  nutella  ", "en");
+    const service = new ProductService(fakeClient, fakeSearchRepository);
+
+    const products = await service.searchProducts(
+      "fake-user-id",
+      "  nutella  ",
+      "en",
+    );
 
     expect(products).toEqual([
       {
@@ -110,9 +119,14 @@ describe("ProductService", () => {
       },
     };
 
-    const service = new ProductService(fakeClient);
+    const fakeSearchRepository = {
+      create: async () => undefined,
+      findRecentByUser: async () => [],
+    };
 
-    const products = await service.searchProducts("   ", "en");
+    const service = new ProductService(fakeClient, fakeSearchRepository);
+
+    const products = await service.searchProducts("fake-user-id", "   ", "en");
 
     expect(products).toEqual([]);
   });
@@ -124,10 +138,57 @@ describe("ProductService", () => {
       }),
     };
 
-    const service = new ProductService(fakeClient);
+    const fakeSearchRepository = {
+      create: async () => undefined,
+      findRecentByUser: async () => [],
+    };
 
-    const products = await service.searchProducts("nutella", "en");
+    const service = new ProductService(fakeClient, fakeSearchRepository);
+
+    const products = await service.searchProducts(
+      "fake-user-id",
+      "nutella",
+      "en",
+    );
 
     expect(products).toEqual([]);
+  });
+
+  it("records the user's search", async () => {
+    const createdSearches: Array<{
+      userId: string;
+      query: string;
+      language: string;
+    }> = [];
+
+    const fakeSearchRepository = {
+      create: async (userId: string, query: string, language: string) => {
+        createdSearches.push({
+          userId,
+          query,
+          language,
+        });
+      },
+
+      findRecentByUser: async () => [],
+    };
+
+    const fakeClient = {
+      searchProducts: async () => ({
+        products: [],
+      }),
+    };
+
+    const service = new ProductService(fakeClient, fakeSearchRepository);
+
+    await service.searchProducts("demo-user-id", "  nutella  ", "en");
+
+    expect(createdSearches).toEqual([
+      {
+        userId: "demo-user-id",
+        query: "nutella",
+        language: "EN",
+      },
+    ]);
   });
 });

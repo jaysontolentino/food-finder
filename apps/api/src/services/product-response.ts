@@ -1,4 +1,4 @@
-import type { Product } from "../integrations/open-food-facts/open-food-facts.mapper.js";
+import type { Product } from "../integrations/open-food-facts/open-food-facts.mapper";
 
 export interface ProductResponse {
   barcode: string;

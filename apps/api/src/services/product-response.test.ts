@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { toProductResponse } from "./product-response.js";
+import { toProductResponse } from "./product-response";
 
 const product = {
   barcode: "123456",

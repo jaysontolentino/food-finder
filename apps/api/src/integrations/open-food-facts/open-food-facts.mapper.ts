@@ -1,6 +1,6 @@
 import type { SupportedLanguage } from "@food-finder/shared";
 
-import type { OpenFoodFactsProduct } from "./open-food-facts.types.js";
+import type { OpenFoodFactsProduct } from "./open-food-facts.types";
 
 export interface Product {
   barcode: string;

@@ -1,4 +1,4 @@
-import type { OpenFoodFactsSearchResponse } from "./open-food-facts.types.js";
+import type { OpenFoodFactsSearchResponse } from "./open-food-facts.types";
 
 const BASE_URL =
   process.env.OPEN_FOOD_FACTS_BASE_URL ?? "https://world.openfoodfacts.org";
