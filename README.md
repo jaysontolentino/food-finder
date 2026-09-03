@@ -32,3 +32,18 @@ apps/
 
 packages/
 └── shared/
+
+# Start database
+docker compose up -d
+
+# Install dependencies
+pnpm install
+
+# Run migrations
+pnpm --filter api exec prisma migrate deploy
+
+# Start API
+pnpm dev:api
+
+# Start frontend
+pnpm dev:web
