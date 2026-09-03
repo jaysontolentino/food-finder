@@ -14,6 +14,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.20.0",
   "dependencies": {
+    "@food-finder/shared": "workspace:*",
     "@prisma/adapter-mariadb": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "cors": "^2.8.6",

@@ -10,6 +10,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@food-finder/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@prisma/adapter-mariadb':
         specifier: ^7.10.0
         version: 7.10.0
