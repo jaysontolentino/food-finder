@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { mapProduct } from "./../integrations/open-food-facts/open-food-facts.mapper";
 import { ProductService } from "./product.service";
+import { ISearchRepository } from "../repositories/search.repository";
 
 describe("mapProduct", () => {
   it("uses the selected language when available", () => {
@@ -88,8 +89,14 @@ describe("ProductService", () => {
       }),
     };
 
-    const fakeSearchRepository = {
-      create: async () => undefined,
+    const fakeSearchRepository: ISearchRepository = {
+      create: async () => ({
+        id: "fake-search-id",
+        query: "nutella",
+        language: "EN",
+        userId: "fake-user-id",
+        createdAt: new Date(),
+      }),
       findRecentByUser: async () => [],
     };
 
@@ -119,8 +126,14 @@ describe("ProductService", () => {
       },
     };
 
-    const fakeSearchRepository = {
-      create: async () => undefined,
+    const fakeSearchRepository: ISearchRepository = {
+      create: async () => ({
+        id: "fake-search-id",
+        query: "nutella",
+        language: "EN",
+        userId: "fake-user-id",
+        createdAt: new Date(),
+      }),
       findRecentByUser: async () => [],
     };
 
@@ -138,8 +151,14 @@ describe("ProductService", () => {
       }),
     };
 
-    const fakeSearchRepository = {
-      create: async () => undefined,
+    const fakeSearchRepository: ISearchRepository = {
+      create: async () => ({
+        id: "fake-search-id",
+        query: "nutella",
+        language: "EN",
+        userId: "fake-user-id",
+        createdAt: new Date(),
+      }),
       findRecentByUser: async () => [],
     };
 
@@ -161,13 +180,21 @@ describe("ProductService", () => {
       language: string;
     }> = [];
 
-    const fakeSearchRepository = {
-      create: async (userId: string, query: string, language: string) => {
+    const fakeSearchRepository: ISearchRepository = {
+      create: async (userId, query, language) => {
         createdSearches.push({
           userId,
           query,
           language,
         });
+
+        return {
+          id: "fake-search-id",
+          query,
+          language,
+          userId,
+          createdAt: new Date(),
+        };
       },
 
       findRecentByUser: async () => [],
@@ -195,10 +222,14 @@ describe("ProductService", () => {
   it("does not record the search when the product API fails", async () => {
     let searchRecorded = false;
 
-    const fakeSearchRepository = {
-      create: async () => {
-        searchRecorded = true;
-      },
+    const fakeSearchRepository: ISearchRepository = {
+      create: async () => ({
+        id: "fake-search-id",
+        query: "nutella",
+        language: "EN",
+        userId: "demo-user-id",
+        createdAt: new Date(),
+      }),
 
       findRecentByUser: async () => [],
     };

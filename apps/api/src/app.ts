@@ -3,6 +3,7 @@ import cors from "cors";
 import { prisma } from "./lib/prisma";
 import productRoutes from "./routes/product.routes";
 import searchRoutes from "./routes/search.routes";
+import { demoUserMiddleware } from "./middleware/demo-user.middleware";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(demoUserMiddleware);
 
 app.get("/health", async (_req, res) => {
   try {

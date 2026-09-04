@@ -1,10 +1,10 @@
-import type { Language } from "../generated/prisma/client";
+import type { Language, Search } from "../generated/prisma/client";
 
 import { prisma } from "../lib/prisma";
 
 export interface ISearchRepository {
-  create(userId: string, query: string, language: Language): Promise<unknown>;
-  findRecentByUser(userId: string, limit?: number): Promise<unknown>;
+  create(userId: string, query: string, language: Language): Promise<Search>;
+  findRecentByUser(userId: string, limit?: number): Promise<Search[]>;
 }
 
 export class SearchRepository implements ISearchRepository {
