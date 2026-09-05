@@ -62,4 +62,60 @@ export class ProductController {
       });
     }
   }
+
+  async getByBarcode(req: Request<{ barcode: string }>, res: Response) {
+    const { barcode } = req.params;
+    const language = req.query.lang;
+
+    if (!barcode) {
+      return res.status(400).json({
+        error: "Barcode is required",
+      });
+    }
+
+    if (
+      language !== "en" &&
+      language !== "nl" &&
+      language !== "de" &&
+      language !== "fr"
+    ) {
+      return res.status(400).json({
+        error: "Invalid language",
+      });
+    }
+
+    try {
+      const product = await this.productService.getProductByBarcode(
+        req.userId,
+        barcode,
+        language,
+      );
+
+      if (!product) {
+        return res.status(404).json({
+          error: "Product not found",
+        });
+      }
+
+      const includeNutrition =
+        await this.subscriptionService.canAccessNutrition(req.userId);
+
+      return res.json({
+        product: toProductResponse(product, includeNutrition),
+      });
+    } catch (error) {
+      if (error instanceof OpenFoodFactsRateLimitError) {
+        return res.status(503).json({
+          error:
+            "Product service is temporarily unavailable. Please try again later.",
+        });
+      }
+
+      console.error("Failed to fetch product:", error);
+
+      return res.status(500).json({
+        error: "Failed to fetch product",
+      });
+    }
+  }
 }

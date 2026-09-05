@@ -58,3 +58,28 @@ export async function getRecentSearches(): Promise<RecentSearch[]> {
 
   return data.searches;
 }
+
+export async function getProductByBarcode(
+  barcode: string,
+  language: SupportedLanguage,
+): Promise<Product> {
+  const params = new URLSearchParams({
+    lang: language,
+  });
+
+  const response = await fetch(
+    `${API_URL}/api/products/${encodeURIComponent(barcode)}?${params.toString()}`,
+  );
+
+  if (response.status === 404) {
+    throw new Error("Product not found");
+  }
+
+  if (!response.ok) {
+    throw new Error("Failed to load product");
+  }
+
+  const result = await response.json();
+
+  return result.product as Product;
+}

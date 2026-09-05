@@ -1,4 +1,4 @@
-import type { Product } from "@/lib/api";
+import type { Product, SupportedLanguage } from "@/lib/api";
 
 import { ProductCard } from "./product-card";
 
@@ -6,12 +6,13 @@ interface ProductGridProps {
   products: Product[];
   brandLabel: string;
   emptyMessage: string;
+  language: SupportedLanguage;
 }
 
 export function ProductGrid({
   products,
-  brandLabel,
   emptyMessage,
+  language,
 }: ProductGridProps) {
   if (products.length === 0) {
     return <p className="py-10 text-center text-gray-500">{emptyMessage}</p>;
@@ -23,7 +24,7 @@ export function ProductGrid({
         <ProductCard
           key={product.barcode}
           product={product}
-          brandLabel={brandLabel}
+          language={language}
         />
       ))}
     </div>

@@ -1,5 +1,8 @@
 import { env } from "../../config/env";
-import type { OpenFoodFactsSearchResponse } from "./open-food-facts.types";
+import type {
+  OpenFoodFactsProduct,
+  OpenFoodFactsSearchResponse,
+} from "./open-food-facts.types";
 import { OpenFoodFactsRateLimitError } from "./open-food-facts.errors";
 import { SearchCache } from "../../lib/search-cache";
 
@@ -73,5 +76,58 @@ export class OpenFoodFactsClient {
     searchCache.set(cacheKey, data);
 
     return data;
+  }
+
+  async getProductByBarcode(
+    barcode: string,
+  ): Promise<OpenFoodFactsProduct | null> {
+    const url = new URL(
+      `/api/v2/product/${encodeURIComponent(barcode)}.json`,
+      BASE_URL,
+    );
+
+    url.searchParams.set(
+      "fields",
+      [
+        "code",
+        "product_name",
+        "product_name_en",
+        "product_name_nl",
+        "product_name_de",
+        "product_name_fr",
+        "brands",
+        "image_front_url",
+        "nutriments",
+      ].join(","),
+    );
+
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent": USER_AGENT,
+      },
+    });
+
+    if (response.status === 429 || response.status === 503) {
+      throw new OpenFoodFactsRateLimitError();
+    }
+
+    if (response.status === 404) {
+      return null;
+    }
+
+    if (!response.ok) {
+      throw new Error(`Open Food Facts request failed: ${response.status}`);
+    }
+
+    const data = (await response.json()) as {
+      status?: number;
+      product?: OpenFoodFactsProduct;
+    };
+
+    if (data.status !== 1 || !data.product) {
+      return null;
+    }
+
+    return data.product;
   }
 }

@@ -87,6 +87,13 @@ describe("ProductService", () => {
           },
         ],
       }),
+      getProductByBarcode: async () => ({
+        code: "123456789",
+        product_name: "Nutella",
+        product_name_en: "Nutella",
+        brands: "Ferrero",
+        image_front_url: "https://example.com/nutella.jpg",
+      }),
     };
 
     const fakeSearchRepository: ISearchRepository = {
@@ -124,6 +131,13 @@ describe("ProductService", () => {
       searchProducts: async () => {
         throw new Error("Should not be called");
       },
+      getProductByBarcode: async () => ({
+        code: "123456789",
+        product_name: "Nutella",
+        product_name_en: "Nutella",
+        brands: "Ferrero",
+        image_front_url: "https://example.com/nutella.jpg",
+      }),
     };
 
     const fakeSearchRepository: ISearchRepository = {
@@ -148,6 +162,13 @@ describe("ProductService", () => {
     const fakeClient = {
       searchProducts: async () => ({
         products: undefined,
+      }),
+      getProductByBarcode: async () => ({
+        code: "123456789",
+        product_name: "Nutella",
+        product_name_en: "Nutella",
+        brands: "Ferrero",
+        image_front_url: "https://example.com/nutella.jpg",
       }),
     };
 
@@ -204,6 +225,13 @@ describe("ProductService", () => {
       searchProducts: async () => ({
         products: [],
       }),
+      getProductByBarcode: async () => ({
+        code: "123456789",
+        product_name: "Nutella",
+        product_name_en: "Nutella",
+        brands: "Ferrero",
+        image_front_url: "https://example.com/nutella.jpg",
+      }),
     };
 
     const service = new ProductService(fakeClient, fakeSearchRepository);
@@ -238,6 +266,13 @@ describe("ProductService", () => {
       searchProducts: async () => {
         throw new Error("Open Food Facts unavailable");
       },
+      getProductByBarcode: async () => ({
+        code: "123456789",
+        product_name: "Nutella",
+        product_name_en: "Nutella",
+        brands: "Ferrero",
+        image_front_url: "https://example.com/nutella.jpg",
+      }),
     };
 
     const service = new ProductService(fakeClient, fakeSearchRepository);

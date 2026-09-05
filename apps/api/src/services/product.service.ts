@@ -46,4 +46,18 @@ export class ProductService {
       mapProduct(product, language),
     );
   }
+
+  async getProductByBarcode(
+    userId: string,
+    barcode: string,
+    language: SupportedLanguage,
+  ): Promise<Product | null> {
+    const product = await this.openFoodFactsClient.getProductByBarcode(barcode);
+
+    if (!product) {
+      return null;
+    }
+
+    return mapProduct(product, language);
+  }
 }

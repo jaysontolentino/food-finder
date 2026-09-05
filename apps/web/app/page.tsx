@@ -77,7 +77,9 @@ export default function Home() {
             </p>
           </div>
 
-          <LanguageSelector language={language} onChange={setLanguage} />
+          <div className="flex gap-2">
+            <LanguageSelector language={language} onChange={setLanguage} />
+          </div>
         </header>
 
         <section className="mb-8">
@@ -103,12 +105,13 @@ export default function Home() {
           <h2 className="mb-5 text-xl font-semibold">{t.products}</h2>
 
           {error ? (
-            <p className="py-10 text-center text-red-600">{error}</p>
+            <p className="py-10 text-center text-red-600">{t.searchError}</p>
           ) : (
             <ProductGrid
               products={products}
               brandLabel={t.brand}
               emptyMessage={t.noResults}
+              language={language}
             />
           )}
         </section>
