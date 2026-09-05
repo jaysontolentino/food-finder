@@ -3,13 +3,17 @@ import type { Request, Response } from "express";
 import { OpenFoodFactsRateLimitError } from "../integrations/open-food-facts/open-food-facts.errors";
 import { toProductResponse } from "../services/product-response";
 import type { ProductService } from "../services/product.service";
+import type { SubscriptionService } from "../services/subscription.service";
 
 const supportedLanguages = ["en", "nl", "de", "fr"] as const;
 
 type SupportedLanguage = (typeof supportedLanguages)[number];
 
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(
+    private readonly productService: ProductService,
+    private readonly subscriptionService: SubscriptionService,
+  ) {}
 
   async search(req: Request, res: Response) {
     const query = typeof req.query.q === "string" ? req.query.q : "";
@@ -35,8 +39,8 @@ export class ProductController {
         language as SupportedLanguage,
       );
 
-      // Temporary until Stripe authorization is wired in.
-      const includeNutrition = false;
+      const includeNutrition =
+        await this.subscriptionService.canAccessNutrition(req.userId);
 
       return res.json({
         products: products.map((product) =>

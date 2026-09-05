@@ -1,16 +1,16 @@
+import { env } from "../../config/env";
 import type { OpenFoodFactsSearchResponse } from "./open-food-facts.types";
 import { OpenFoodFactsRateLimitError } from "./open-food-facts.errors";
 import { SearchCache } from "../../lib/search-cache";
 
 const searchCache = new SearchCache<OpenFoodFactsSearchResponse>(5 * 60 * 1000); // 5 minutes
 
-const BASE_URL =
-  process.env.OPEN_FOOD_FACTS_BASE_URL ?? "https://world.openfoodfacts.org";
+const BASE_URL = env.openFoodFactsBaseUrl;
 
-const USER_AGENT = process.env.OPEN_FOOD_FACTS_USER_AGENT ?? "FoodFinder/1.0";
+const USER_AGENT = env.openFoodFactsUserAgent;
 
-const USERNAME = process.env.OPEN_FOOD_FACTS_USERNAME;
-const PASSWORD = process.env.OPEN_FOOD_FACTS_PASSWORD;
+const USERNAME = env.openFoodFactsUsername;
+const PASSWORD = env.openFoodFactsPassword;
 
 export class OpenFoodFactsClient {
   async searchProducts(query: string): Promise<OpenFoodFactsSearchResponse> {
