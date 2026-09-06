@@ -33,5 +33,19 @@
   "sugars": "Sugars",
   "fiber": "Fiber",
   "protein": "Protein",
-  "salt": "Salt"
+  "salt": "Salt",
+  "subscriptionSuccessTitle": "Subscription Active",
+  "subscriptionSuccessMessage": "Your FoodFinder subscription is now active. You can now view detailed nutritional information for products.",
+  "nutritionAccessUnlocked": "Nutrition access unlocked",
+  "nutritionAccessDescription": "Your account can now access detailed nutrition information.",
+  "fatAndSaturatedFat": "Fat & saturated fat",
+  "carbohydratesAndSugars": "Carbohydrates & sugars",
+  "proteinAndFiber": "Protein & fiber",
+  "startSearching": "Start searching",
+  "subscriptionCancelledTitle": "Checkout Cancelled",
+  "subscriptionCancelledMessage": "No payment was made and your account has not been subscribed.",
+  "stillUseFoodFinder": "You can still use FoodFinder",
+  "subscriptionCancelledDescription": "Continue searching for products and browsing basic product information. You can subscribe whenever you are ready to access detailed nutrition information.",
+  "backToFoodFinder": "Back to FoodFinder",
+  "subscribeAnytime": "Want nutrition details? You can subscribe anytime."
 }

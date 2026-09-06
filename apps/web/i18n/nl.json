@@ -33,5 +33,19 @@
   "sugars": "Suikers",
   "fiber": "Vezels",
   "protein": "Eiwitten",
-  "salt": "Zout"
+  "subscriptionSuccessTitle": "Abonnement actief",
+  "subscriptionSuccessMessage": "Je FoodFinder-abonnement is nu actief. Je kunt nu gedetailleerde voedingsinformatie van producten bekijken.",
+  "nutritionAccessUnlocked": "Toegang tot voedingsinformatie ontgrendeld",
+  "nutritionAccessDescription": "Je account heeft nu toegang tot gedetailleerde voedingsinformatie.",
+  "fatAndSaturatedFat": "Vet & verzadigd vet",
+  "carbohydratesAndSugars": "Koolhydraten & suikers",
+  "proteinAndFiber": "Eiwitten & vezels",
+  "salt": "Zout",
+  "startSearching": "Begin met zoeken",
+  "subscriptionCancelledTitle": "Betaling geannuleerd",
+  "subscriptionCancelledMessage": "Er is geen betaling uitgevoerd en je account is niet geabonneerd.",
+  "stillUseFoodFinder": "Je kunt FoodFinder blijven gebruiken",
+  "subscriptionCancelledDescription": "Blijf zoeken naar producten en bekijk basisinformatie. Je kunt je op elk moment abonneren om toegang te krijgen tot gedetailleerde voedingsinformatie.",
+  "backToFoodFinder": "Terug naar FoodFinder",
+  "subscribeAnytime": "Wil je voedingsinformatie bekijken? Je kunt je op elk moment abonneren."
 }

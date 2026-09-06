@@ -1,3 +1,5 @@
+import { SupportedLanguage } from "./api";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 export interface SubscriptionStatus {
@@ -16,10 +18,17 @@ export async function getSubscriptionStatus(): Promise<boolean> {
   return data.active;
 }
 
-export async function createCheckoutSession(): Promise<string> {
-  const response = await fetch(`${API_URL}/api/subscription/checkout`, {
-    method: "POST",
-  });
+export async function createCheckoutSession(
+  language: SupportedLanguage,
+): Promise<string> {
+  const params = new URLSearchParams({ lang: language });
+
+  const response = await fetch(
+    `${API_URL}/api/subscription/checkout?${params.toString()}`,
+    {
+      method: "POST",
+    },
+  );
 
   if (!response.ok) {
     throw new Error("Failed to create checkout session");

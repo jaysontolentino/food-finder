@@ -6,13 +6,16 @@ import {
   createCheckoutSession,
   getSubscriptionStatus,
 } from "@/lib/subscription";
+import { SupportedLanguage } from "@/lib/api";
 
 interface SubscriptionButtonProps {
   onStatusChange?: (active: boolean) => void;
+  language: SupportedLanguage;
 }
 
 export function SubscriptionButton({
   onStatusChange,
+  language,
 }: SubscriptionButtonProps) {
   const [active, setActive] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -41,7 +44,7 @@ export function SubscriptionButton({
       setCheckoutLoading(true);
       setError(null);
 
-      const checkoutUrl = await createCheckoutSession();
+      const checkoutUrl = await createCheckoutSession(language);
 
       window.location.href = checkoutUrl;
     } catch {

@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { createCheckoutSession } from "@/lib/subscription";
+import { SupportedLanguage } from "@/lib/api";
 
 interface NutritionLockedProps {
   translations: {
@@ -12,9 +13,13 @@ interface NutritionLockedProps {
     openingCheckout: string;
     checkoutError: string;
   };
+  language: SupportedLanguage;
 }
 
-export function NutritionLocked({ translations }: NutritionLockedProps) {
+export function NutritionLocked({
+  translations,
+  language,
+}: NutritionLockedProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,7 +28,7 @@ export function NutritionLocked({ translations }: NutritionLockedProps) {
       setLoading(true);
       setError(null);
 
-      const checkoutUrl = await createCheckoutSession();
+      const checkoutUrl = await createCheckoutSession(language);
 
       window.location.href = checkoutUrl;
     } catch {

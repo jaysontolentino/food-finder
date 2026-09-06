@@ -4,6 +4,7 @@ import type { IUserRepository } from "../repositories/user.repository";
 import type { ISubscriptionRepository } from "../repositories/subscription.repository";
 import { mapStripeSubscriptionStatus } from "../integrations/stripe/stripe-status.mapper";
 import { env } from "../config/env.js";
+import { SupportedLanguage } from "@food-finder/shared";
 
 export class SubscriptionService {
   constructor(
@@ -11,7 +12,7 @@ export class SubscriptionService {
     private readonly subscriptionRepository: ISubscriptionRepository,
   ) {}
 
-  async createCheckoutSession(userId: string) {
+  async createCheckoutSession(userId: string, language: SupportedLanguage) {
     if (!env.stripePriceId) {
       throw new Error("STRIPE_PRICE_ID is not configured");
     }
@@ -57,8 +58,8 @@ export class SubscriptionService {
           userId: user.id,
         },
       },
-      success_url: "http://localhost:3000/?subscription=success",
-      cancel_url: "http://localhost:3000/?subscription=canceled",
+      success_url: `${env.frontendUrl}/subscription/success?lang=${language}`,
+      cancel_url: `${env.frontendUrl}/subscription/cancelled?lang=${language}`,
     });
 
     return {

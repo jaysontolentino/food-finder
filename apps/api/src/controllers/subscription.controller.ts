@@ -1,13 +1,19 @@
 import type { Request, Response } from "express";
 import type { SubscriptionService } from "../services/subscription.service";
+import { SupportedLanguage } from "@food-finder/shared";
 
 export class SubscriptionController {
   constructor(private readonly subscriptionService: SubscriptionService) {}
 
   async createCheckoutSession(req: Request, res: Response) {
+    const language = (
+      typeof req.query.lang === "string" ? req.query.lang : "en"
+    ) as SupportedLanguage;
+
     try {
       const session = await this.subscriptionService.createCheckoutSession(
         req.userId,
+        language,
       );
 
       return res.json(session);

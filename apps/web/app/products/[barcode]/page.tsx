@@ -115,7 +115,7 @@ export default async function ProductDetailsPage({
           {product.nutrition ? (
             <NutritionTable nutrition={product.nutrition} translations={t} />
           ) : (
-            <NutritionLocked translations={t} />
+            <NutritionLocked translations={t} language={language} />
           )}
         </div>
       </section>
