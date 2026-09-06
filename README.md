@@ -832,28 +832,6 @@ The API seed can also be run directly:
 pnpm --filter api exec tsx src/seed.ts
 ```
 
-## Submission Checklist
-
-Before submitting the repository, verify:
-
-- [ ] `pnpm install` works
-- [ ] MySQL starts with Docker Compose
-- [ ] Prisma migrations apply successfully
-- [ ] Demo user can be seeded
-- [ ] `DEMO_USER_ID` is configured
-- [ ] Open Food Facts search works
-- [ ] All four languages work
-- [ ] Product details work
-- [ ] Free users cannot receive nutrition data
-- [ ] Stripe Checkout works in test mode
-- [ ] Stripe webhook is received and verified
-- [ ] Subscription row is created/updated in MySQL
-- [ ] Active subscribers receive nutrition data
-- [ ] `pnpm test` passes
-- [ ] `pnpm build` passes
-- [ ] `.env` and secrets are not committed
-- [ ] `.env.example` contains all required configuration names
-
 ## License
 
 This project was created as a technical assessment/demo application.
