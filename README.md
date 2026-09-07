@@ -816,16 +816,6 @@ pnpm lint          # Run workspace lint scripts
 pnpm db:reset      # Reset database and reseed demo user
 ```
 
-If `pnpm db:reset` is not yet present in `package.json`, add:
-
-```json
-{
-  "scripts": {
-    "db:reset": "bash ./scripts/reset-db.sh"
-  }
-}
-```
-
 The API seed can also be run directly:
 
 ```bash
